@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project/select_page.dart';
 
 import 'package:project/tapbar_select.dart';
 
@@ -1162,7 +1163,7 @@ class details_page extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => date(),
+                              builder: (context) => date(Selectpage: 0,),
                             ));
                       }),SizedBox(height: 10,)
                 ],

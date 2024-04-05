@@ -297,20 +297,22 @@ class _acoountpageState extends State<acoountpage> {
                                     _first = !_first;
                                   });
                                 }),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 2),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                          "l would like to recieve marketing offers and "),
-                                    ],
+                            Container(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 25),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                            "l would like to recieve marketing offers and "),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                    "promotional communications from Booking.com")
-                              ],
+                                  Text(
+                                      "promotional communications from Booking.com")
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -331,7 +333,7 @@ class _acoountpageState extends State<acoountpage> {
                             height: 50,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: Colors.grey),
+                              border: Border.all(width: 1, color: Colors.white60),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Center(
