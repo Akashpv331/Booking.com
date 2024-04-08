@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project/check_out.dart';
+import 'package:intl/intl.dart';
+import 'package:project/check_out.dart';   
 import 'package:project/tapbar_select.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class check_in extends StatefulWidget {
@@ -17,12 +19,20 @@ class _check_inState extends State<check_in> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  var now = DateTime.now();
 
   TextEditingController _eventController = TextEditingController();
   @override
   void dispose() {
     _eventController.dispose();
     super.dispose();
+  }
+  Future<void> savedata()async {
+    SharedPreferences prefs= await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString("date1", DateFormat.yMMMMd().format(selectedDay));
+      print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ${DateFormat.yMMMMd().format(selectedDay)}");
+    });
   }
 
   @override
@@ -65,10 +75,13 @@ class _check_inState extends State<check_in> {
             
                     //Day Changed on select
                     onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                      savedata();
                       setState(() {
                         selectedDay = selectDay;
                         focusedDay = focusDay;
                           _first = !_first;
+                           
+                            
                         
                       });
                       print(focusedDay);

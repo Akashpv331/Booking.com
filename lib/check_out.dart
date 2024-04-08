@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project/room.dart';
+import 'package:intl/intl.dart';
+    
 import 'package:project/tapbar_select.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class check_out extends StatefulWidget {
@@ -15,15 +17,43 @@ class check_out extends StatefulWidget {
 class _check_outState extends State<check_out> {
    bool _first= true;
   CalendarFormat format = CalendarFormat.month;
-  DateTime selectedDay = DateTime.now();
+  DateTime selectedDay1 = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
   TextEditingController _eventController = TextEditingController();
+  String cale="";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    load();
+  }
+
   @override
   void dispose() {
     _eventController.dispose();
     super.dispose();
   }
+  
+
+
+  Future<void> load() async{
+    SharedPreferences pref= await SharedPreferences.getInstance();
+    setState(() {
+      cale=pref.getString("date1")??"no data found";
+print("$cale,jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+    });
+    
+  }
+Future<void> save() async{
+  SharedPreferences pref2= await SharedPreferences.getInstance();
+  setState(() {
+    // pref2.setString("date3", cale.toString());
+    pref2.setString("date2", DateFormat.yMMMMd().format(selectedDay1) );
+      print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ${selectedDay1.toString()}");
+    print("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz${cale}");
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +90,7 @@ class _check_outState extends State<check_out> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("mar/3/2024")
+                            Text("$cale")
                           ],
                         ),
                       ),
@@ -77,7 +107,7 @@ class _check_outState extends State<check_out> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("nnnn")
+                            Text("Select Date")
                           ],
                         ),
                       ),
@@ -104,7 +134,7 @@ class _check_outState extends State<check_out> {
                       border: Border.all(
                           width: 1, color: Color.fromARGB(255, 51, 48, 48))),
                   child: TableCalendar(
-                    focusedDay: selectedDay,
+                    focusedDay: selectedDay1,
                     firstDay: DateTime(1990),
                     lastDay: DateTime(2050),
             
@@ -122,14 +152,15 @@ class _check_outState extends State<check_out> {
                     //Day Changed on select
                     onDaySelected: (DateTime selectDay, DateTime focusDay) {
                       setState(() {
-                        selectedDay = selectDay;
+                        save();
+                        selectedDay1 = selectDay;
                         focusedDay = focusDay;
                           _first = !_first;
                       });
                       print(focusedDay);
                     },
                     selectedDayPredicate: (DateTime date) {
-                      return isSameDay(selectedDay, date);
+                      return isSameDay(selectedDay1, date);
                     },
             
                     //To style the Calendar

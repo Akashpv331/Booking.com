@@ -1,10 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project/conform_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class booking_details extends StatelessWidget {
+class booking_details extends StatefulWidget {
   const booking_details({super.key});
 
+  @override
+  State<booking_details> createState() => _booking_detailsState();
+}
+
+class _booking_detailsState extends State<booking_details> {
+
+  String chin="";
+  String chout="";
+  String rm="";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    load();
+  }
+  Future<void> load() async{
+    SharedPreferences pref= await SharedPreferences.getInstance();
+    setState(() {
+      chin=pref.getString("date1")??"no data found";
+      chout=pref.getString("date2")??"no  data found";
+      rm=pref.getString("room")??"no data found";
+    });
+    
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +84,7 @@ class booking_details extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "mar/2/2024",
+                            "$chin",
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                           SizedBox(
@@ -87,7 +114,7 @@ class booking_details extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "mar/2/2024",
+                            "$chout",
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                           SizedBox(
@@ -117,7 +144,7 @@ class booking_details extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            "room11",
+                            "$rm",
                             style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                           SizedBox(

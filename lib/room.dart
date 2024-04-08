@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project/booking_details.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class room extends StatefulWidget {
   const room({super.key});
@@ -14,6 +15,32 @@ class _roomState extends State<room> {
   String dropdwonvalue = "single";
   var items = ["single", "Double", "Three sharing"];
   bool _first1 = true;
+  String indate="";
+  String out="";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+Future<void> loadData() async{
+  SharedPreferences pref1 = await SharedPreferences.getInstance();
+  setState(() {
+    indate= pref1.getString("date1")??"no found data";
+    out=pref1.getString("date2")??"no fond data";
+  });
+  print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvv${indate}");
+}
+Future<void> save1() async{
+  SharedPreferences pref2= await SharedPreferences.getInstance();
+  setState(() {
+    pref2.setString("room", dropdwonvalue.toString());
+     print("ssssssssssssssssssssssssss${dropdwonvalue}");
+  });
+ 
+
+}
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +76,7 @@ class _roomState extends State<room> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("mar/3/2024")
+                            Text("$indate")
                           ],
                         ),
                       ),
@@ -66,7 +93,7 @@ class _roomState extends State<room> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text("mar/3/2024")
+                            Text("$out")
                           ],
                         ),
                       ),
@@ -142,6 +169,7 @@ class _roomState extends State<room> {
                                   }).toList(),
                                   onChanged: (String? newvalue) {
                                     setState(() {
+                                      save1();
                                       dropdwonvalue = newvalue!;
                                     });
                                   }),
