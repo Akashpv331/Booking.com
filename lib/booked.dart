@@ -32,7 +32,7 @@ class _bookedpageState extends State<bookedpage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            height: MediaQuery.of(context).size.height / 7,
+                                                                                                                                                                                                                                                                              height: MediaQuery.of(context).size.height / 7,
                             width: MediaQuery.of(context).size.width / 2,
                             color: Colors.black,
                           ),

@@ -33,7 +33,7 @@ class _ConformState extends State<Conform> with TickerProviderStateMixin {
         width: double.infinity,
         height: double.infinity,
         child: SingleChildScrollView(
-          child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             
             children: [
               Lottie.network(

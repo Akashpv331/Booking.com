@@ -1155,7 +1155,7 @@ class details_page extends StatelessWidget {
                               child: Text(
                             "Book Now",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.white),
+                                fontWeight: FontWeight.bold, color: Colors.white),  
                           )),
                         ),
                       ),

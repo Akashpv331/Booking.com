@@ -85,7 +85,8 @@ class _acoountpageState extends State<acoountpage> {
                   children: [
                     Text(
                       "Create Accounts",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                     ),
                     Container(
                       child: Stack(
@@ -97,9 +98,13 @@ class _acoountpageState extends State<acoountpage> {
                                 onTap: _pickprofileImage,
                                 child: _profileimage == null
                                     ? CircleAvatar(
-                                        backgroundColor:Color.fromARGB(255, 232, 231, 229) ,
+                                        backgroundColor:
+                                            Color.fromARGB(255, 232, 231, 229),
                                         radius: 50,
-                                        child: Icon(Icons.person_2_outlined,size: 40,),
+                                        child: Icon(
+                                          Icons.person_2_outlined,
+                                          size: 40,
+                                        ),
                                       )
                                     : CircleAvatar(
                                         radius: 50,
@@ -129,7 +134,7 @@ class _acoountpageState extends State<acoountpage> {
                     //     color: Colors.black54,
                     //   ),
                     // )),
-                
+
                     ,
                     Container(
                         margin: EdgeInsets.symmetric(
@@ -164,46 +169,15 @@ class _acoountpageState extends State<acoountpage> {
                           style: TextStyle(color: Colors.deepOrangeAccent),
                         )
                       ],
-                    )
-                    // ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(vertical: 20),
-                    //   child: TextField(
-                    //     decoration: InputDecoration(
-                    //         border: OutlineInputBorder(),
-                    //         labelText: "Enter mobile number " "*",
-                    //         prefix: Row(
-                    //           children: [
-                    //             Container(
-                    //               height: 15,
-                    //               width: 15,
-                    //               decoration: BoxDecoration(
-                    //                   image: DecorationImage(
-                    //                       image: AssetImage("assets/flag.jpg"),
-                    //                       fit: BoxFit.fill)),
-                    //             ),
-                    //             SizedBox(
-                    //               width: 3,
-                    //             ),
-                    //             Text("+91"),
-                    //             SizedBox(
-                    //               width: 3,
-                    //             ),
-                    //             Container(
-                    //                 height: 15, width: 1, color: Colors.black)
-                    //           ],
-                    //         )),
-                    //   ),
-                    // ),
-                
-                    ,
+                    ),
                     IntlPhoneField(
                         flagsButtonPadding: EdgeInsets.all(8),
                         controller: numbercontroller,
                         dropdownIconPosition: IconPosition.trailing,
                         decoration: InputDecoration(
                             hintText: "Enter mobile  number",
-                            border: OutlineInputBorder(borderSide: BorderSide())),
+                            border:
+                                OutlineInputBorder(borderSide: BorderSide())),
                         initialCountryCode: "IN",
                         onChanged: (phone) {
                           print(phone.completeNumber);
@@ -227,7 +201,8 @@ class _acoountpageState extends State<acoountpage> {
                     TextField(
                       controller: emailcontroller,
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(), hintText: "Enter email"),
+                          border: OutlineInputBorder(),
+                          hintText: "Enter email"),
                     ),
                     SizedBox(
                       height: 15,
@@ -289,8 +264,9 @@ class _acoountpageState extends State<acoountpage> {
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                             width: 1, color: Colors.grey),
-                                        color:
-                                            !_first ? Colors.white : Colors.black,
+                                        color: !_first
+                                            ? Colors.white
+                                            : Colors.black,
                                       )),
                                   backgroundColor: Colors.white70,
                                   splashColor: Colors.white,
@@ -307,12 +283,15 @@ class _acoountpageState extends State<acoountpage> {
                                       child: Row(
                                         children: [
                                           Text(
-                                              "l would like to recieve marketing offers and ",style: TextStyle(fontSize: 13),),
+                                            "l would like to recieve marketing offers and ",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
                                         ],
                                       ),
                                     ),
                                     Text(
-                                        "promotional communications from Booking.com",style: TextStyle(fontSize: 13))
+                                        "promotional communications from Booking.com",
+                                        style: TextStyle(fontSize: 13))
                                   ],
                                 ),
                               ),
@@ -335,7 +314,8 @@ class _acoountpageState extends State<acoountpage> {
                               height: 50,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: Colors.white60),
+                                border:
+                                    Border.all(width: 1, color: Colors.white60),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Center(

@@ -132,7 +132,7 @@ class _loginpageState extends State<loginpage> {
                     controller: numbercontroller,
                     dropdownIconPosition: IconPosition.trailing,
                     decoration: InputDecoration(
-                        labelText: "phone number",
+                        labelText: "Phone number",
                         border: OutlineInputBorder(borderSide: BorderSide())),
                     initialCountryCode: "IN",
                     onChanged: (phone) {
