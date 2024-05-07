@@ -2,15 +2,37 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project/select_page.dart';
 
 import 'package:project/tapbar_select.dart';
 
-class details_page extends StatelessWidget {
-  const details_page({super.key});
+import 'Api&Url/ApiClass.dart';
 
+class details_page extends StatefulWidget {
+  var data=[];
+   details_page({super.key,required this.data});
+
+  @override
+  State<details_page> createState() => _details_pageState();
+}
+
+class _details_pageState extends State<details_page> {
+  String img1="";
+  String addr1="";
+  String  name1="";
+  String price1="";
+  String location1="";
+  String dec1="";
+  // var result=[];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // detais();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -132,7 +154,8 @@ class details_page extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                "Hostel name",
+                           widget.data.toString()
+                                ,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
@@ -1174,4 +1197,29 @@ class details_page extends StatelessWidget {
       ),
     );
   }
+
+//    void detais()async {print("ssssssssssssssssssssssssssuuuuuuuuuussssuuuuu$result");
+//       final formData =
+//           FormData.fromMap({"haddre": addr1, "hprice":price1,"hloc":location1,"hdesc":dec1,"hname":name1,"himage":img1});
+//       result = (await ApiClass().HosteldetailApi())! as List;
+// }
+
+
+
+// 
+// 
+// 
+// 
+//  void detais()async {
+      
+//     final  resultss = await ApiClass().HosteldetailApi();
+  
+          
+//      print("immhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh$result");
+//      setState(() {
+      
+//        result.addAll(resultss!);
+//      });
+//   // 
+//  }
 }

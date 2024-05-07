@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:project/check_out.dart';   
+import 'package:project/check_out.dart';
 import 'package:project/tapbar_select.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -15,7 +15,7 @@ class check_in extends StatefulWidget {
 }
 
 class _check_inState extends State<check_in> {
-  bool _first= true;
+  bool _first = true;
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
@@ -27,11 +27,13 @@ class _check_inState extends State<check_in> {
     _eventController.dispose();
     super.dispose();
   }
-  Future<void> savedata()async {
-    SharedPreferences prefs= await SharedPreferences.getInstance();
+
+  Future<void> savedata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       prefs.setString("date1", DateFormat.yMMMMd().format(selectedDay));
-      print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ${DateFormat.yMMMMd().format(selectedDay)}");
+      print(
+          "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ${DateFormat.yMMMMd().format(selectedDay)}");
     });
   }
 
@@ -44,7 +46,6 @@ class _check_inState extends State<check_in> {
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),
-
         body: Padding(
           padding: const EdgeInsets.all(4),
           child: Padding(
@@ -54,14 +55,15 @@ class _check_inState extends State<check_in> {
                 //defining min an max years
                 Container(
                   height: 500,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                           width: 1, color: const Color.fromRGBO(0, 0, 0, 1))),
                   child: TableCalendar(
                     focusedDay: selectedDay,
                     firstDay: DateTime(1990),
                     lastDay: DateTime(2050),
-            
+
                     //changing calendar format
                     calendarFormat: format,
                     onFormatChanged: (CalendarFormat _format) {
@@ -72,24 +74,21 @@ class _check_inState extends State<check_in> {
                     startingDayOfWeek: StartingDayOfWeek.monday,
                     daysOfWeekVisible: true,
                     daysOfWeekHeight: 40,
-            
+
                     //Day Changed on select
                     onDaySelected: (DateTime selectDay, DateTime focusDay) {
                       savedata();
                       setState(() {
                         selectedDay = selectDay;
                         focusedDay = focusDay;
-                          _first = !_first;
-                           
-                            
-                        
+                        _first = !_first;
                       });
                       print(focusedDay);
                     },
                     selectedDayPredicate: (DateTime date) {
                       return isSameDay(selectedDay, date);
                     },
-            
+
                     //To style the Calendar
                     calendarStyle: CalendarStyle(
                       isTodayHighlighted: true,
@@ -130,35 +129,40 @@ class _check_inState extends State<check_in> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 10,
                 ),
-            
+
                 GestureDetector(
-                    child: AnimatedPhysicalModel(duration: Duration(seconds: 1),
-                    color: !_first? Colors.white:Colors.black,
-                    elevation: 0,
-                    shape: BoxShape.rectangle,
-                    shadowColor: Colors.black,
-                     borderRadius: BorderRadius.circular(18),
+                    child: AnimatedPhysicalModel(
+                      duration: Duration(seconds: 1),
+                      color: !_first ? Colors.white : Colors.black,
+                      elevation: 0,
+                      shape: BoxShape.rectangle,
+                      shadowColor: Colors.black,
+                      borderRadius: BorderRadius.circular(18),
                       child: Container(
-                                        height: MediaQuery.of(context).size.height / 16,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
+                        height: MediaQuery.of(context).size.height / 16,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
                         ),
-                                        child: Center(
-                        child: Text(
-                      "Apply",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                                        )),
-                                      ),
-                    ),onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context) => date(Selectpage: 1),));}
-                )
+                        child: Center(
+                            child: Text(
+                          "Apply",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        )),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => date(Selectpage: 1),
+                          ));
+                    })
               ],
             ),
           ),
         ),
-
-        
       ),
     );
   }

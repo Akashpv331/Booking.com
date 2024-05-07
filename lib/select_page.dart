@@ -1,5 +1,10 @@
+
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:project/Api&Url/ApiClass.dart';
 import 'package:project/details_page.dart';
+
 
 
 class selectpage extends StatefulWidget {
@@ -10,6 +15,21 @@ class selectpage extends StatefulWidget {
 }
 
 class _selectpageState extends State<selectpage> {
+ 
+  String img="";
+  String addr="";
+  String  name="";
+  String price="";
+  String location="";
+  String dec="";
+  var result=[];
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    hosteldetais();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,7 +169,7 @@ class _selectpageState extends State<selectpage> {
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 5,
+                  itemCount:result.length,
                   itemBuilder: (BuildContext context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -164,8 +184,8 @@ class _selectpageState extends State<selectpage> {
                                 width: double.infinity,
                                 height: MediaQuery.of(context).size.height / 6,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10),image: DecorationImage(image: NetworkImage(result[index]["himage"]),fit: BoxFit.cover)
+                                  ),
                                 child: Column(
                                   children: [
                                     Padding(
@@ -194,7 +214,7 @@ class _selectpageState extends State<selectpage> {
                                                     .width /
                                                 1.6,
                                             height: 2,
-                                            color: Colors.black,
+                                            
                                           ),
                                           CircleAvatar(
                                             radius: 16,
@@ -230,11 +250,11 @@ class _selectpageState extends State<selectpage> {
                                     color: Colors.orange,
                                     size: 18,
                                   ),
-                                  Text("Location")
+                                  Text(result[index]["hloc"],style: TextStyle(fontSize: 11),)
                                 ],
                               ),
                               Row(
-                                children: [Text("Kaloor Hostel")],
+                                children: [Text(result[index]["hname"],)],
                               ),
                               Row(
                                 children: [
@@ -244,7 +264,7 @@ class _selectpageState extends State<selectpage> {
                                     size: 10,
                                   ),
                                   Text(
-                                    "399",
+                                    result[index]['hprice'].toString(),
                                     style: TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Icon(
@@ -261,7 +281,7 @@ class _selectpageState extends State<selectpage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => details_page(),
+                                      builder: (context) => details_page(data: result[index], ),
                                     ));
                               },
                       ),
@@ -272,5 +292,26 @@ class _selectpageState extends State<selectpage> {
         ),
       ),
     );
+    
+  }
+  void hosteldetais()async {
+      final formData =
+          FormData.fromMap({"haddre": addr, "hprice":price,"hloc":location,"hdesc":dec,"hname":name,"himage":img});
+      result = (await ApiClass().HosteldetailApi())! as List;
+     print("aaaaaaaaaaaaaaaaaaaaaaaaaa0${result[0]["himage"]}");
+      print("aaaaaaaaaaaaaaaaaaaaaaaaaa1${result[1]["himage"]}");
+       print("aaaaaaaaaaaaaaaaaaaaaaaaaa2${result[2]["himage"]}");
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaa3${result[3]["himage"]}");
+         print("aaaaaaaaaaaaaaaaaaaaaaaaaa4${result[4]["himage"]}");
+          print("aaaaaaaaaaaaaaaaaaaaaaaaaa5${result[5]["himage"]}");
+           print("aaaaaaaaaaaaaaaaaaaaaaaaaa6${result[6]["himage"]}");
+     print("immmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+     setState(() {
+      hosteldetais();
+       
+     });
+  
+   
+     
   }
 }

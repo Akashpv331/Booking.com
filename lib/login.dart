@@ -1,6 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:project/Api&Url/ApiClass.dart';
 import 'package:project/create_ac.dart';
 import 'package:project/forgot_password.dart';
 import 'package:project/permission.dart';
@@ -15,7 +18,7 @@ class loginpage extends StatefulWidget {
 class _loginpageState extends State<loginpage> {
   TextEditingController numbercontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
-  bool passwordvisible=true;
+  bool passwordvisible = true;
   @override
   void initState() {
     passwordvisible = false;
@@ -144,20 +147,28 @@ class _loginpageState extends State<loginpage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(height: MediaQuery.of(context).size.height/14,
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height / 14,
                   child: TextField(
                     controller: passwordcontroller,
                     keyboardType: TextInputType.text,
                     obscureText: !passwordvisible,
-                    
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(), labelText: "Enter password",suffix: IconButton(icon:  Icon(passwordvisible?Icons.visibility:Icons.visibility_off,color:Colors.black,),
-                          onPressed: (){
+                        border: OutlineInputBorder(),
+                        labelText: "Enter password",
+                        suffix: IconButton(
+                          icon: Icon(
+                            passwordvisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,  
+                            color: Colors.black,
+                          ),
+                          onPressed: () {
                             setState(() {
-                              passwordvisible=!passwordvisible;
+                              passwordvisible = !passwordvisible;
                             });
-                          },)),
-                        
+                          },
+                        )),
                   ),
                 ),
               ),
@@ -180,11 +191,7 @@ class _loginpageState extends State<loginpage> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => permissionpage(),
-                          ));
+                      loginuser();
                     }),
               ),
               Container(
@@ -218,7 +225,8 @@ class _loginpageState extends State<loginpage> {
                   CircleAvatar(
                     backgroundImage: AssetImage("assets/google.jpg"),
                   ),
-                  CircleAvatar(backgroundImage: AssetImage("assets/facebook.jpg"))
+                  CircleAvatar(
+                      backgroundImage: AssetImage("assets/facebook.jpg"))
                 ],
               ),
               Container(
@@ -229,19 +237,20 @@ class _loginpageState extends State<loginpage> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => acoountpage(),
-                          ));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => acoountpage(),));
                     },
                   )),
               GestureDetector(
                 child: Text(
                   "Forgot password",
                   style: TextStyle(fontWeight: FontWeight.bold),
-                ),onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Forgot(),));
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Forgot(),
+                      ));
                 },
               )
             ],
@@ -249,5 +258,52 @@ class _loginpageState extends State<loginpage> {
         ),
       ),
     );
+  }
+
+  void loginuser() async {
+    final _mobile = numbercontroller.text;
+    final _password = passwordcontroller.text;
+    if (_mobile.isEmpty) {
+      showErrorMessage("please enter mobile no");
+    } else if (_password.isEmpty) {
+      showErrorMessage("please enter password");
+    } else {
+      final formData =
+          FormData.fromMap({"phone": _mobile, "password": _password});
+      final result = await ApiClass().LoginUserApi(formData);
+      if (result != null) {Navigator.push(
+                          context,
+                          MaterialPageRoute( 
+                            builder: (context) => permissionpage(),
+                          ));
+        showSuccessMessage("success");
+      } else {
+        showErrorMessage("error");
+      }
+    }
+  }
+
+  void showErrorMessage(String message) {
+    MotionToast.error(
+      title: Text("error"),
+      description: Text(message),
+      position: MotionToastPosition.top,
+      barrierColor: Colors.black.withOpacity(0.3),
+      width: 300,
+      height: 80,
+      dismissable: false,
+    ).show(context as BuildContext);
+  }
+
+  void showSuccessMessage(String message) {
+    MotionToast.success(
+      title: Text("succes"),
+      description: Text(message),
+      position: MotionToastPosition.top,
+      barrierColor: Colors.black.withOpacity(0.3),
+      width: 300,
+      height: 80,
+      dismissable: false,
+    ).show(context as BuildContext);
   }
 }

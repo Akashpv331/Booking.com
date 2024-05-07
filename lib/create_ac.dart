@@ -1,10 +1,15 @@
+
+
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:project/Api&Url/ApiClass.dart';
 import 'package:project/home.dart';
 
 class acoountpage extends StatefulWidget {
@@ -17,7 +22,10 @@ class acoountpage extends StatefulWidget {
 class _acoountpageState extends State<acoountpage> {
   TextEditingController numbercontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
-  TextEditingController namecontroller = TextEditingController();
+ 
+  TextEditingController passwordcontroller = TextEditingController();
+   TextEditingController namecontroller = TextEditingController();
+
   bool passwordvisible = true;
   @override
   void initState() {
@@ -223,6 +231,7 @@ class _acoountpageState extends State<acoountpage> {
                       height: MediaQuery.of(context).size.height / 13,
                       width: double.infinity,
                       child: TextField(
+                        controller: passwordcontroller,
                         keyboardType: TextInputType.text,
                         obscureText: !passwordvisible,
                         decoration: InputDecoration(
@@ -329,11 +338,7 @@ class _acoountpageState extends State<acoountpage> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => home(),
-                              ));
+                         signUpUser();
                         })
                   ],
                 ),
@@ -342,6 +347,95 @@ class _acoountpageState extends State<acoountpage> {
           ),
         ),
       ),
+
+
+      
     );
+    
+
+
+
+
+    
+
   }
-}
+   void signUpUser( ) async {
+    final _username =namecontroller.text;
+    final _email = emailcontroller.text;
+    final _mobile = numbercontroller.text;
+
+    final _password = passwordcontroller.text;
+
+    if (_username.isEmpty) {
+      showErrorMessage('Please enter first name');
+    } else if (_email.isEmpty) {
+      showErrorMessage('Please enter email id');
+    } else if (_mobile.isEmpty) {
+      showErrorMessage('Please enter mobile number');
+    } else if (_password.isEmpty) {
+      showErrorMessage('Please enter your password');
+    } else {
+      final _formData = FormData.fromMap({
+        'username': _username,
+        'email': _email,
+        'phone': _mobile,
+        'password': _password
+      });
+
+      final _result = await ApiClass().RegisterUserApi(_formData);
+
+      if (_result != null) {
+         Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => home(),
+                              ));
+          showSuccessMessage("sucsess");
+        } else {
+          showErrorMessage("errorr");
+        }
+      }
+    }
+     void showErrorMessage(String message) {
+    MotionToast.error(
+      title: const Text(
+        'Error',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      description: Text(message),
+      position: MotionToastPosition.top,
+      barrierColor: Colors.black.withOpacity(0.3),
+      width: 300,
+      height: 80,
+      dismissable: false,
+    ).show(context);
+  }
+
+  void showSuccessMessage(String message) {
+    MotionToast.success(
+      title: const Text(
+        'Success',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      description: Text(message),
+      position: MotionToastPosition.top,
+      barrierColor: Colors.black.withOpacity(0.3),
+      width: 300,
+      height: 80,
+      dismissable: false,
+    ).show(context);
+  }
+
+  }
+
+ 
+
+
+
+
+
+

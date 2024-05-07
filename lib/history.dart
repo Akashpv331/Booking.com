@@ -1,4 +1,8 @@
+
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:project/Api&Url/ApiClass.dart';
 
 class historypage extends StatefulWidget {
   const historypage({super.key});
@@ -8,9 +12,23 @@ class historypage extends StatefulWidget {
 }
 
 class _historypageState extends State<historypage> {
+  String name="";
+  String loca="";
+  String pric="";
+  String im="";
+  String cheout="";
+  String chein="";
+  List result=[];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BookingHistory();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Container(child: ListView.builder(itemCount: 5,
+    return Scaffold(body: Container(child: ListView.builder(itemCount: result.length,
       itemBuilder:(BuildContext context, index) {
 return Container(child: Column(
           children: [
@@ -34,7 +52,7 @@ return Container(child: Column(
                           child: Container(
                             height: MediaQuery.of(context).size.height / 7,
                             width: MediaQuery.of(context).size.width / 2,
-                            color: Colors.black,
+                            // decoration: BoxDecoration(image: DecorationImage(image: result[index]["hostel_image"],fit:BoxFit.fill)),
                           ),
                         ),
                         Container(
@@ -46,10 +64,10 @@ return Container(child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "hostel",
+                                result[index]["hname"],
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text("location"),
+                              Text(result[index]["hostel_loc"].toString()),
                               Row(
                                 children: [
                                   Icon(
@@ -57,7 +75,7 @@ return Container(child: Column(
                                     color: Colors.black,
                                     size: 15,
                                   ),
-                                  Text("399")
+                                  Text(result[index]["hostel_price"].toString())
                                 ],
                               ),
                               Row(
@@ -97,13 +115,13 @@ return Container(child: Column(
                           children: [
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text("12 jun",style: TextStyle(fontWeight: FontWeight.bold),)],
+                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text(result[index]["checkin"],style: TextStyle(fontWeight: FontWeight.bold),)],
                             ),
 
                             Icon(Icons.arrow_circle_right_outlined,color: Colors.black54,),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text("12 jun",style: TextStyle(fontWeight: FontWeight.bold))],
+                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text(result[index]["checkout"],style: TextStyle(fontWeight: FontWeight.bold))],
                             )
                           ],
                         ),
@@ -117,5 +135,15 @@ return Container(child: Column(
         ),);
       
     })),);
+  }
+  void BookingHistory() async{
+    print("ggggg");
+    final formData= FormData.fromMap({"hname":name,"hostel_price":pric,"hostel_loc":loca,"hostel_image":im,"checkin":chein,"checkout":cheout});
+     result= (await ApiClass().BookingHisApi())! as List;
+     print("ddddddddddddddddddddddddddddddddddddddddddddddd$result");
+     setState(() {BookingHistory();
+
+       
+     });
   }
 }

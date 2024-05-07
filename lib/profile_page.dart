@@ -62,6 +62,10 @@ class _ProfileState extends State<Profile> {
                   
               Container(width: double.infinity,height: 2,color: const Color.fromARGB(255, 239, 232, 232),
               
+              ), ListTile(leading: Text(" Logout",style: TextStyle(fontSize: 15)),trailing: Icon(Icons.logout),),
+                  
+              Container(width: double.infinity,height: 2,color: const Color.fromARGB(255, 239, 232, 232),
+              
               ),
               
 

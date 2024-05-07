@@ -1,4 +1,8 @@
+import 'dart:ui';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:project/Api&Url/ApiClass.dart';
 
 class bookedpage extends StatefulWidget {
   const bookedpage({super.key});
@@ -8,6 +12,19 @@ class bookedpage extends StatefulWidget {
 }
 
 class _bookedpageState extends State<bookedpage> {
+  String name="";
+  String loc="";
+  var pri="";
+  String im="";
+  String cin="";
+  String cout="";
+  Map result={};
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    booked();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,10 +63,10 @@ class _bookedpageState extends State<bookedpage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "hostel",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                result["hname"]
+                               , style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text("location"),
+                              Text(result["hostel_loc"]),
                               Row(
                                 children: [
                                   Icon(
@@ -57,7 +74,7 @@ class _bookedpageState extends State<bookedpage> {
                                     color: Colors.black,
                                     size: 15,
                                   ),
-                                  Text("399")
+                                  Text(result["hostel_price"].toString())
                                 ],
                               ),
                               Row(
@@ -97,13 +114,13 @@ class _bookedpageState extends State<bookedpage> {
                           children: [
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text("12 jun",style: TextStyle(fontWeight: FontWeight.bold),)],
+                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text(result["checkin"],style: TextStyle(fontWeight: FontWeight.bold),)],
                             ),
 
                             Icon(Icons.arrow_circle_right_outlined,color: Colors.black54,),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text("12 jun",style: TextStyle(fontWeight: FontWeight.bold))],
+                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text(result["checkout"],style: TextStyle(fontWeight: FontWeight.bold))],
                             )
                           ],
                         ),
@@ -118,4 +135,16 @@ class _bookedpageState extends State<bookedpage> {
       ),
     );
   }
+ void booked()async {
+  print("yyyyyyyyyyy");
+      final formData =
+          FormData.fromMap({"checkin": cin,"checkout":cout ,"hostel_price":pri,"hostel_loc":loc,"hname":name,"hostel_image":im});
+      result = (await ApiClass().BookedApi()) 
+      as Map;
+      print("oooooooooooooooooooooooooooooooooooooooooo$result");
+setState(() {
+  booked();
+});
+
+}
 }

@@ -12,8 +12,8 @@ class room extends StatefulWidget {
 }
 
 class _roomState extends State<room> {
-  String dropdwonvalue = "single";
-  var items = ["single", "Double", "Three sharing"];
+  String dropdwonvalue = "Single Room";
+  var items = ["Single Room", "Dormitory", "Three sharing"];
   bool _first1 = true;
   String indate="";
   String out="";
