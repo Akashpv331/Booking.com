@@ -1,7 +1,12 @@
+import 'dart:ui';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project/conform_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 class booking_details extends StatefulWidget {
   const booking_details({super.key});
@@ -15,11 +20,19 @@ class _booking_detailsState extends State<booking_details> {
   String chin="";
   String chout="";
   String rm="";
+   String name="";
+  String loc="";
+  String pri="";
+  String im="";
+  String cin="";
+  String cout="";
+  Map result={};
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     load();
+    
   }
   Future<void> load() async{
     SharedPreferences pref= await SharedPreferences.getInstance();
@@ -27,8 +40,14 @@ class _booking_detailsState extends State<booking_details> {
       chin=pref.getString("date1")??"no data found";
       chout=pref.getString("date2")??"no  data found";
       rm=pref.getString("room")??"no data found";
-    });
+      name=pref.getString("name")??"no found";
+      im=pref.getString("image")??"no found";
+      loc=pref.getString("location")??" no found";
+      pri=pref.getString("price").toString();
     
+    });
+    print("bbbbbbbbbbbbbbbbbbbbbbbbbbb$name");
+     print("bbbbbbbbbbbbbbbbbbbbbbbbbbb$pri");
   }
 
   
@@ -223,8 +242,8 @@ class _booking_detailsState extends State<booking_details> {
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height / 6,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.black),
+                            borderRadius: BorderRadius.circular(10),image: DecorationImage(image: NetworkImage("$im"),fit:BoxFit.fill )
+                            ),
                         child: Column(
                           children: [
                             Padding(
@@ -244,7 +263,7 @@ class _booking_detailsState extends State<booking_details> {
                                     width:
                                         MediaQuery.of(context).size.width / 1.6,
                                     height: 2,
-                                    color: Colors.black,
+                                    
                                   ),
                                   CircleAvatar(
                                     radius: 16,
@@ -279,11 +298,11 @@ class _booking_detailsState extends State<booking_details> {
                             color: Colors.orange,
                             size: 18,
                           ),
-                          Text("Location")
+                          Text("$loc",style: TextStyle(fontSize: 11))
                         ],
                       ),
                       Row(
-                        children: [Text("Kaloor Hostel")],
+                        children: [Text("$name",),],
                       ),
                       Row(
                         children: [
@@ -293,7 +312,7 @@ class _booking_detailsState extends State<booking_details> {
                             size: 10,
                           ),
                           Text(
-                            "399",
+                            "$pri",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Icon(
@@ -334,4 +353,16 @@ class _booking_detailsState extends State<booking_details> {
       ),
     );
   }
+//   void bookingdetails()async {
+//   print("iiiiiiii");
+//       final formData =
+//           FormData.fromMap({"checkin": cin,"checkout":cout ,"hostel_price":pri,"hostel_loc":loc,"hname":name,"hostel_image":im});
+//       result = (await ApiClass().BookedhisApi()) 
+//       as Map;
+//       print("oooooooooooooooooooooooooooooooooooooooooo$result");
+// setState(() { 
+//   bookingdetails();
+// });
+
 }
+

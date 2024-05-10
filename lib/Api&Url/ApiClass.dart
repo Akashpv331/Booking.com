@@ -3,7 +3,7 @@
 
 
 import 'package:dio/dio.dart';
-import 'package:project/Api&Url/BookingHistoryRes.dart';
+import 'package:project/Api&Url/BookingRes.dart';
 import 'package:project/Api&Url/LoginRes.dart';
 import 'package:project/Api&Url/RegisterRes.dart';
 import 'package:project/Api&Url/Url.dart';
@@ -53,7 +53,7 @@ class ApiClass{
   Future<List?>HosteldetailApi() async{
     try{
       final result= await dio.get(Url.HostelEndpoints);
-      print("gggggggggggggggggggggggggggg $result");
+     // print("gggggggggggggggggggggggggggg $result");
       return result.data as List;
 
     }
@@ -65,9 +65,9 @@ class ApiClass{
       print(e);
     }
   }
-  Future<List?>BookingHisApi() async{
+  Future<List?>BookingApi() async{
     try{
-      final result= await dio.get(Url.BookingHisEndpoints);
+      final result= await dio.get(Url.BookingEndpoints);
       print("ppppppppppppppppppppppppppppppppppppppp $result");
       return result.data as List;
 
@@ -80,8 +80,8 @@ class ApiClass{
       print("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww$e");
     }
   }
-  Future<Map?>BookedApi()async{
-    try{final result=await dio.get(Url.BookedEndpoints);
+  Future<Map?>BookedhisApi()async{
+    try{final result=await dio.get(Url.BookedhisEndpoints);
     print("sssssssssssssssssssssssssssssssss$result");
     return result.data as Map;
 

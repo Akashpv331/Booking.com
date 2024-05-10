@@ -23,7 +23,7 @@ class _historypageState extends State<historypage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    BookingHistory();
+    Booking();
   }
 
   @override
@@ -52,7 +52,7 @@ return Container(child: Column(
                           child: Container(
                             height: MediaQuery.of(context).size.height / 7,
                             width: MediaQuery.of(context).size.width / 2,
-                            // decoration: BoxDecoration(image: DecorationImage(image: result[index]["hostel_image"],fit:BoxFit.fill)),
+                            decoration: BoxDecoration(image: DecorationImage(image: NetworkImage( result[index]["hostel_image"],))),
                           ),
                         ),
                         Container(
@@ -136,12 +136,12 @@ return Container(child: Column(
       
     })),);
   }
-  void BookingHistory() async{
+  void Booking() async{
     print("ggggg");
     final formData= FormData.fromMap({"hname":name,"hostel_price":pric,"hostel_loc":loca,"hostel_image":im,"checkin":chein,"checkout":cheout});
-     result= (await ApiClass().BookingHisApi())! as List;
+     result= (await ApiClass().BookingApi())! as List;
      print("ddddddddddddddddddddddddddddddddddddddddddddddd$result");
-     setState(() {BookingHistory();
+     setState(() {Booking();
 
        
      });

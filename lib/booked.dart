@@ -13,23 +13,24 @@ class bookedpage extends StatefulWidget {
 
 class _bookedpageState extends State<bookedpage> {
   String name="";
-  String loc="";
-  var pri="";
+  String loca="";
+  String pric="";
   String im="";
-  String cin="";
-  String cout="";
-  Map result={};
+  String cheout="";
+  String chein="";
+  List result=[];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    booked();
+    Booking();
   }
   @override
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Column(
+    return Scaffold(body: Container(child: ListView.builder(itemCount: result.length,
+      itemBuilder:(BuildContext context, index) {
+return Container(child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -49,9 +50,9 @@ class _bookedpageState extends State<bookedpage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                                                                                                                                                                                                                                                                              height: MediaQuery.of(context).size.height / 7,
+                            height: MediaQuery.of(context).size.height / 7,
                             width: MediaQuery.of(context).size.width / 2,
-                            color: Colors.black,
+                            decoration: BoxDecoration(image: DecorationImage(image: NetworkImage( result[index]["hostel_image"],))),
                           ),
                         ),
                         Container(
@@ -63,10 +64,10 @@ class _bookedpageState extends State<bookedpage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                result["hname"]
-                               , style: TextStyle(fontWeight: FontWeight.bold),
+                                result[index]["hname"],
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text(result["hostel_loc"]),
+                              Text(result[index]["hostel_loc"].toString()),
                               Row(
                                 children: [
                                   Icon(
@@ -74,7 +75,7 @@ class _bookedpageState extends State<bookedpage> {
                                     color: Colors.black,
                                     size: 15,
                                   ),
-                                  Text(result["hostel_price"].toString())
+                                  Text(result[index]["hostel_price"].toString())
                                 ],
                               ),
                               Row(
@@ -114,13 +115,13 @@ class _bookedpageState extends State<bookedpage> {
                           children: [
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text(result["checkin"],style: TextStyle(fontWeight: FontWeight.bold),)],
+                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text(result[index]["checkin"],style: TextStyle(fontWeight: FontWeight.bold),)],
                             ),
 
                             Icon(Icons.arrow_circle_right_outlined,color: Colors.black54,),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text(result["checkout"],style: TextStyle(fontWeight: FontWeight.bold))],
+                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text(result[index]["checkout"],style: TextStyle(fontWeight: FontWeight.bold))],
                             )
                           ],
                         ),
@@ -131,20 +132,18 @@ class _bookedpageState extends State<bookedpage> {
               ),
             )
           ],
-        ),
-      ),
-    );
+        ),);
+      
+    })),);
   }
- void booked()async {
-  print("yyyyyyyyyyy");
-      final formData =
-          FormData.fromMap({"checkin": cin,"checkout":cout ,"hostel_price":pri,"hostel_loc":loc,"hname":name,"hostel_image":im});
-      result = (await ApiClass().BookedApi()) 
-      as Map;
-      print("oooooooooooooooooooooooooooooooooooooooooo$result");
-setState(() {
-  booked();
-});
+  void Booking() async{
+    print("ggggg");
+    final formData= FormData.fromMap({"hname":name,"hostel_price":pric,"hostel_loc":loca,"hostel_image":im,"checkin":chein,"checkout":cheout});
+     result= (await ApiClass().BookingApi())! as List;
+     print("ddddddddddddddddddddddddddddddddddddddddddddddd$result");
+     setState(() {Booking();
 
-}
+       
+     });
+  }
 }

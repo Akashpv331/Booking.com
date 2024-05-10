@@ -2,36 +2,50 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:project/select_page.dart';
+
 
 import 'package:project/tapbar_select.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Api&Url/ApiClass.dart';
 
 class details_page extends StatefulWidget {
-  var data=[];
-   details_page({super.key,required this.data});
+  
+String name;
+String image;
+int price;
+String location;
+String desc;
+
+  
+   details_page({super.key,required this.name,required this.image,required this.price,required this.location,required this.desc});
 
   @override
   State<details_page> createState() => _details_pageState();
 }
 
 class _details_pageState extends State<details_page> {
-  String img1="";
-  String addr1="";
-  String  name1="";
-  String price1="";
-  String location1="";
-  String dec1="";
-  // var result=[];
+ 
+  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    
+    savedata();
     // detais();
+  }
+   Future<void> savedata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString("name",widget.name );
+      prefs.setString("image",widget.image );
+      prefs.setString("location",widget.location );
+      prefs.setInt("price",int.parse(widget.price as String));
+    });
+    print("xxxxxxxxx${widget.price}");
   }
   @override
   Widget build(BuildContext context) {
@@ -54,7 +68,8 @@ class _details_pageState extends State<details_page> {
                         Container(
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height / 4.5,
-                          color: Colors.black,
+                          
+                          decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(widget.image),fit: BoxFit.fill)),
                           child: Column(
                             children: [
                               Padding(
@@ -154,8 +169,8 @@ class _details_pageState extends State<details_page> {
                           child: Row(
                             children: [
                               Text(
-                           widget.data.toString()
-                                ,
+                          
+                          widget.name,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
@@ -213,7 +228,7 @@ class _details_pageState extends State<details_page> {
                           Icons.location_on,
                           color: Colors.orange,
                         ),
-                        Text("kondom avenue karukappalli, kallor po ,kochi"),
+                        Text(widget.location),
                         SizedBox(
                           width: 5,
                         ),
@@ -342,7 +357,7 @@ class _details_pageState extends State<details_page> {
                           Icons.currency_rupee_rounded,
                           size: 16,
                         ),
-                        Text("399",
+                        Text(widget.price.toString(),
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         Icon(
                           Icons.currency_rupee_rounded,
@@ -793,7 +808,7 @@ class _details_pageState extends State<details_page> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Text("4.5"),
+                                      Text("4.1"),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -812,7 +827,7 @@ class _details_pageState extends State<details_page> {
                                       SizedBox(
                                         width: 5,
                                       ),
-                                      Text("Location")
+                                      Text("kaloor")
                                     ],
                                   ),
                                   Row(
@@ -821,12 +836,12 @@ class _details_pageState extends State<details_page> {
                                         Icons.currency_rupee,
                                         size: 10,
                                       ),
-                                      Text("399"),
+                                      Text("4500"),
                                       Icon(
                                         Icons.currency_rupee,
                                         size: 10,
                                       ),
-                                      Text("2999")
+                                      Text("5000",style: TextStyle(fontWeight: FontWeight.w200))
                                     ],
                                   )
                                 ],
@@ -897,7 +912,7 @@ class _details_pageState extends State<details_page> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Text("4.5"),
+                                      Text("4.2"),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -905,7 +920,7 @@ class _details_pageState extends State<details_page> {
                                     ],
                                   ),
                                   Row(
-                                    children: [Text("Kaloor Hostel")],
+                                    children: [Text("Boys Hostel")],
                                   ),
                                   Row(
                                     children: [
@@ -916,7 +931,7 @@ class _details_pageState extends State<details_page> {
                                       SizedBox(
                                         width: 5,
                                       ),
-                                      Text("Location")
+                                      Text("palarivattom")
                                     ],
                                   ),
                                   Row(
@@ -925,12 +940,12 @@ class _details_pageState extends State<details_page> {
                                         Icons.currency_rupee,
                                         size: 10,
                                       ),
-                                      Text("399"),
+                                      Text("5000"),
                                       Icon(
                                         Icons.currency_rupee,
                                         size: 10,
                                       ),
-                                      Text("2999")
+                                      Text("5500",style: TextStyle(fontWeight: FontWeight.w200))
                                     ],
                                   )
                                 ],
@@ -1013,7 +1028,7 @@ class _details_pageState extends State<details_page> {
                                     ],
                                   ),
                                   Row(
-                                    children: [Text("Kaloor Hostel")],
+                                    children: [Text("Mariya hostel")],
                                   ),
                                   Row(
                                     children: [
@@ -1024,7 +1039,7 @@ class _details_pageState extends State<details_page> {
                                       SizedBox(
                                         width: 5,
                                       ),
-                                      Text("Location")
+                                      Text("kaloor")
                                     ],
                                   ),
                                   Row(
@@ -1033,12 +1048,12 @@ class _details_pageState extends State<details_page> {
                                         Icons.currency_rupee,
                                         size: 10,
                                       ),
-                                      Text("399"),
+                                      Text("4600"),
                                       Icon(
                                         Icons.currency_rupee,
                                         size: 10,
                                       ),
-                                      Text("2999")
+                                      Text("5000",style: TextStyle(fontWeight: FontWeight.w200))
                                     ],
                                   )
                                 ],
@@ -1109,7 +1124,7 @@ class _details_pageState extends State<details_page> {
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Text("4.5"),
+                                      Text("3.9"),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -1117,7 +1132,7 @@ class _details_pageState extends State<details_page> {
                                     ],
                                   ),
                                   Row(
-                                    children: [Text("Kaloor Hostel")],
+                                    children: [Text("South Janatha Hostel")],
                                   ),
                                   Row(
                                     children: [
@@ -1128,7 +1143,7 @@ class _details_pageState extends State<details_page> {
                                       SizedBox(
                                         width: 5,
                                       ),
-                                      Text("Location")
+                                      Text("kaloor")
                                     ],
                                   ),
                                   Row(
@@ -1137,12 +1152,12 @@ class _details_pageState extends State<details_page> {
                                         Icons.currency_rupee,
                                         size: 10,
                                       ),
-                                      Text("399"),
+                                      Text("4500"),
                                       Icon(
                                         Icons.currency_rupee,
                                         size: 10,
                                       ),
-                                      Text("2999")
+                                      Text("5000",style: TextStyle(fontWeight: FontWeight.w200),)
                                     ],
                                   )
                                 ],
@@ -1198,28 +1213,8 @@ class _details_pageState extends State<details_page> {
     );
   }
 
-//    void detais()async {print("ssssssssssssssssssssssssssuuuuuuuuuussssuuuuu$result");
-//       final formData =
-//           FormData.fromMap({"haddre": addr1, "hprice":price1,"hloc":location1,"hdesc":dec1,"hname":name1,"himage":img1});
-//       result = (await ApiClass().HosteldetailApi())! as List;
-// }
 
 
 
-// 
-// 
-// 
-// 
-//  void detais()async {
-      
-//     final  resultss = await ApiClass().HosteldetailApi();
-  
-          
-//      print("immhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh$result");
-//      setState(() {
-      
-//        result.addAll(resultss!);
-//      });
-//   // 
-//  }
+
 }

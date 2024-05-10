@@ -29,6 +29,7 @@ class _selectpageState extends State<selectpage> {
     super.initState();
     hosteldetais();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -281,7 +282,7 @@ class _selectpageState extends State<selectpage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => details_page(data: result[index], ),
+                                      builder: (context) => details_page(name:result[index]["hname"], image: result[index]["himage"], price:result[index]["hprice"], location: result[index]["hloc"], desc: result[index]["hdesc"],),
                                     ));
                               },
                       ),
@@ -298,16 +299,16 @@ class _selectpageState extends State<selectpage> {
       final formData =
           FormData.fromMap({"haddre": addr, "hprice":price,"hloc":location,"hdesc":dec,"hname":name,"himage":img});
       result = (await ApiClass().HosteldetailApi())! as List;
-     print("aaaaaaaaaaaaaaaaaaaaaaaaaa0${result[0]["himage"]}");
+   /*  print("aaaaaaaaaaaaaaaaaaaaaaaaaa0${result[0]["himage"]}");
       print("aaaaaaaaaaaaaaaaaaaaaaaaaa1${result[1]["himage"]}");
        print("aaaaaaaaaaaaaaaaaaaaaaaaaa2${result[2]["himage"]}");
         print("aaaaaaaaaaaaaaaaaaaaaaaaaa3${result[3]["himage"]}");
          print("aaaaaaaaaaaaaaaaaaaaaaaaaa4${result[4]["himage"]}");
           print("aaaaaaaaaaaaaaaaaaaaaaaaaa5${result[5]["himage"]}");
-           print("aaaaaaaaaaaaaaaaaaaaaaaaaa6${result[6]["himage"]}");
+           print("aaaaaaaaaaaaaaaaaaaaaaaaaa6${result[6]["himage"]}");*/
      print("immmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
      setState(() {
-      hosteldetais();
+    //  hosteldetais();
        
      });
   
