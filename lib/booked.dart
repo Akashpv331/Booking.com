@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:project/Api&Url/ApiClass.dart';
+import 'package:project/Api&Url/confirm.dart';
 
 class bookedpage extends StatefulWidget {
   const bookedpage({super.key});
@@ -24,6 +25,8 @@ class _bookedpageState extends State<bookedpage> {
     // TODO: implement initState
     super.initState();
     Booking();
+    
+  
   }
   @override
   @override
@@ -141,7 +144,7 @@ return Container(child: Column(
     final formData= FormData.fromMap({"hname":name,"hostel_price":pric,"hostel_loc":loca,"hostel_image":im,"checkin":chein,"checkout":cheout});
      result= (await ApiClass().BookingApi())! as List;
      print("ddddddddddddddddddddddddddddddddddddddddddddddd$result");
-     setState(() {Booking();
+     setState(() {
 
        
      });

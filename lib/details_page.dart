@@ -43,9 +43,11 @@ class _details_pageState extends State<details_page> {
       prefs.setString("name",widget.name );
       prefs.setString("image",widget.image );
       prefs.setString("location",widget.location );
-      prefs.setInt("price",int.parse(widget.price as String));
+      prefs.setInt("price",widget.price);
+
     });
-    print("xxxxxxxxx${widget.price}");
+    print("55555555111111111111${widget.price}");
+     print("5555555555555555555555555555555${widget.name}");
   }
   @override
   Widget build(BuildContext context) {

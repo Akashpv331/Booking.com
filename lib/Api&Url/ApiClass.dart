@@ -7,6 +7,7 @@ import 'package:project/Api&Url/BookingRes.dart';
 import 'package:project/Api&Url/LoginRes.dart';
 import 'package:project/Api&Url/RegisterRes.dart';
 import 'package:project/Api&Url/Url.dart';
+import 'package:project/Api&Url/confirm.dart';
 import 'package:project/Api&Url/hosteldetailsRes.dart';
 
 class ApiClass{
@@ -95,7 +96,32 @@ class ApiClass{
       print("tttttttttttttttttttttttttttttttttttttt$e");
     }
   }
-}
+   Future<BookingCon?> ConfirmApi(FormData formData) async{
+    try{
+      final result = await dio.post(Url.BookingEndpoints,data: formData);
+      print("bbbbbbbbbbbbbbbbbbbbbbb1 $result");
+      return BookingCon.fromJson(result.data);
+    }
+    on DioError catch(e){
+      print(e);
+    }
+    catch(e){
+      print(e);
+    }
+  }
+  Future<List?>Registerget()async{
+    try{final result=await dio.get(Url.registerEndpoint);
+    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj$result");
 
-class map {
+    return result.data as List;
+
+
+    }
+    on DioError catch(e){
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr$e");
+
+    }
+    catch(e){
+      print("tttttttttttttttttttttttttttttttttttttt$e");
+    }}
 }

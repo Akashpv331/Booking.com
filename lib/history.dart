@@ -18,12 +18,12 @@ class _historypageState extends State<historypage> {
   String im="";
   String cheout="";
   String chein="";
-  List result=[];
+  Map result={};
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Booking();
+    bookinghisdetails();
   }
 
   @override
@@ -52,7 +52,7 @@ return Container(child: Column(
                           child: Container(
                             height: MediaQuery.of(context).size.height / 7,
                             width: MediaQuery.of(context).size.width / 2,
-                            decoration: BoxDecoration(image: DecorationImage(image: NetworkImage( result[index]["hostel_image"],))),
+                            decoration: BoxDecoration(image: DecorationImage(image: NetworkImage("hostel_image"))),
                           ),
                         ),
                         Container(
@@ -64,10 +64,10 @@ return Container(child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                result[index]["hname"],
+                                "name",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text(result[index]["hostel_loc"].toString()),
+                              Text("hostel_loc"),
                               Row(
                                 children: [
                                   Icon(
@@ -75,7 +75,7 @@ return Container(child: Column(
                                     color: Colors.black,
                                     size: 15,
                                   ),
-                                  Text(result[index]["hostel_price"].toString())
+                                  Text("hostel_price")
                                 ],
                               ),
                               Row(
@@ -115,13 +115,13 @@ return Container(child: Column(
                           children: [
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text(result[index]["checkin"],style: TextStyle(fontWeight: FontWeight.bold),)],
+                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text("checkin",style: TextStyle(fontWeight: FontWeight.bold),)],
                             ),
 
                             Icon(Icons.arrow_circle_right_outlined,color: Colors.black54,),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text(result[index]["checkout"],style: TextStyle(fontWeight: FontWeight.bold))],
+                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text("checkout",style: TextStyle(fontWeight: FontWeight.bold))],
                             )
                           ],
                         ),
@@ -136,14 +136,15 @@ return Container(child: Column(
       
     })),);
   }
-  void Booking() async{
-    print("ggggg");
-    final formData= FormData.fromMap({"hname":name,"hostel_price":pric,"hostel_loc":loca,"hostel_image":im,"checkin":chein,"checkout":cheout});
-     result= (await ApiClass().BookingApi())! as List;
-     print("ddddddddddddddddddddddddddddddddddddddddddddddd$result");
-     setState(() {Booking();
-
-       
-     });
-  }
-}
+  void bookinghisdetails()async {
+  print("iiiiiiii");
+      final formData =
+          FormData.fromMap({"checkin": chein,"checkout":cheout ,"hostel_price":pric,"hostel_loc":loca,"hname":name,"hostel_image":im});
+      result = (await ApiClass().BookedhisApi()) 
+      as Map;
+      print("oooooooooooooooooooooooooooooooooooooooooo$result");
+      print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm${result}");
+setState(() { 
+  
+});
+}}

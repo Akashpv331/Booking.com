@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:project/Api&Url/ApiClass.dart';
 import 'package:project/conform_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,6 +34,7 @@ class _booking_detailsState extends State<booking_details> {
     // TODO: implement initState
     super.initState();
     load();
+    Confirmbooking();
     
   }
   Future<void> load() async{
@@ -43,10 +46,10 @@ class _booking_detailsState extends State<booking_details> {
       name=pref.getString("name")??"no found";
       im=pref.getString("image")??"no found";
       loc=pref.getString("location")??" no found";
-      pri=pref.getString("price").toString();
+      pri=pref.getInt("price").toString();
     
     });
-    print("bbbbbbbbbbbbbbbbbbbbbbbbbbb$name");
+    
      print("bbbbbbbbbbbbbbbbbbbbbbbbbbb$pri");
   }
 
@@ -344,7 +347,8 @@ class _booking_detailsState extends State<booking_details> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     )),
-                  ),onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Conform(),));},
+                  ),onTap: (){Confirmbooking();}
+                    
                 ),
               )
             ],
@@ -363,6 +367,61 @@ class _booking_detailsState extends State<booking_details> {
 // setState(() { 
 //   bookingdetails();
 // });
+
+
+void Confirmbooking() async{
+    final _name=name;
+    final _location=loc;
+    final _price=pri;
+    final _image=im;
+    final _checkin=chin;
+    final _checkout=chout;
+
+    final formData =
+          FormData.fromMap({"hname": _name, "hostel_loc": _location,"hostel_price":_price,"hostel_image":_image,"checkin":_checkin,"checkout":_checkout});
+      final results = await ApiClass().ConfirmApi(formData);
+      print("cccccccccccccccccccccccccc${results?.hname}");
+       print("cccccccccccccccccccccccccc${results?.hostelLoc}");
+        print("cccccccccccccccccccccccccc${results?.hostelPrice}");
+         print("cccccccccccccccccccccccccc${results?.hostelImage}");
+          print("cccccccccccccccccccccccccc${results?.checkin}");
+           print("cccccccccccccccccccccccccc${results?.checkout}");
+
+
+      if(results !=null){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Conform(),));
+        showSuccessMessage("success");
+        
+      }
+      else{
+        
+      }
+
+
+
+  } void showErrorMessage(String message) {
+    MotionToast.error(
+      title: Text(""),
+      description: Text(message),
+      position: MotionToastPosition.top,
+      barrierColor: Colors.black.withOpacity(0.3),
+      width: 300,
+      height: 80,
+      dismissable: false,
+    ).show(context as BuildContext);
+  }
+
+  void showSuccessMessage(String message) {
+    MotionToast.success(
+      title: Text("succes"),
+      description: Text(message),
+      position: MotionToastPosition.top,
+      barrierColor: Colors.black.withOpacity(0.3),
+      width: 300,
+      height: 80,
+      dismissable: false,
+    ).show(context as BuildContext);
+  }
 
 }
 

@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project/Api&Url/ApiClass.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -9,6 +11,18 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String username="";
+  String phone="";
+  String email="";
+  String password="";
+  var result=[];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    registerget();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +44,7 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),Container(decoration: BoxDecoration(border: Border.all(color: Color.fromARGB(221, 234, 220, 220))),
-                child: ListTile(leading: CircleAvatar(radius: 25,backgroundColor: Color.fromARGB(212, 201, 202, 195),child: Icon(Icons.person,size: 40,color: Colors.white,),),title: Text("Akash",style: TextStyle(fontWeight: FontWeight.bold)),subtitle: Text("9048987632"),trailing: Icon(Icons.arrow_forward_ios),)),
+                child: ListTile(leading: CircleAvatar(radius: 25,backgroundColor: Color.fromARGB(212, 201, 202, 195),child: Icon(Icons.person,size: 40,color: Colors.white,),),title: Text(result[0]["username"],style: TextStyle(fontWeight: FontWeight.bold)),subtitle: Text(result[0]["phone"]),trailing: Icon(Icons.arrow_forward_ios),)),
                 SizedBox(height: 10,),
                 
                 ListTile(leading: Text("Feedback",style: TextStyle(fontSize: 15),),trailing: Icon(Icons.arrow_forward_ios_outlined),),
@@ -77,5 +91,15 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     );
+  } void registerget() async{
+    print("ggggg");
+    final formData= FormData.fromMap({"username":username,"phone":phone,"email":email,"password":password});
+     result= (await ApiClass().Registerget())!as List ;
+     print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiipoooooooooo$result");
+     setState(() {
+
+       
+     });
   }
+
 }
