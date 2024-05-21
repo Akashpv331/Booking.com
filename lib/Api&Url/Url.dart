@@ -3,6 +3,6 @@ class URL{
   String registerEndpoint="getandpostreg";
   String loginEndpoint="getandpostlog";
   String HostelEndpoints="getandposthostel";
-  String BookingEndpoints="getandpostbooking";
-  String BookedhisEndpoints="getandpostbookingeach";
+  String BookingEndpoints="getandpostbookings";
+  String BookedhisEndpoints="getandpostbookinghistory";
 }

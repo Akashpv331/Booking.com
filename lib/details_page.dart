@@ -130,7 +130,7 @@ class _details_pageState extends State<details_page> {
                                     CircleAvatar(
                                       radius: 12,
                                       backgroundColor: Colors.amber,
-                                      child: Icon(Icons.abc),
+                                      child: Icon(Icons.other_houses_outlined),
                                     ),
                                     Container(
                                       height:
@@ -365,7 +365,7 @@ class _details_pageState extends State<details_page> {
                           Icons.currency_rupee_rounded,
                           size: 10,
                         ),
-                        Text("2,499",
+                        Text("6000",
                             style: TextStyle(fontWeight: FontWeight.w200)),
                         SizedBox(
                           width: 10,

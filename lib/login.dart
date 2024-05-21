@@ -7,6 +7,7 @@ import 'package:project/Api&Url/ApiClass.dart';
 import 'package:project/create_ac.dart';
 import 'package:project/forgot_password.dart';
 import 'package:project/permission.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class loginpage extends StatefulWidget {
   const loginpage({super.key});
@@ -19,10 +20,22 @@ class _loginpageState extends State<loginpage> {
   TextEditingController numbercontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   bool passwordvisible = true;
+  String username = "";
+  String email = "";
+  String image = "";
+  String usrname="";
+  String phnm="";
+
   @override
   void initState() {
+    super.initState();
     passwordvisible = false;
+    
+    
+    
+    
   }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +173,7 @@ class _loginpageState extends State<loginpage> {
                           icon: Icon(
                             passwordvisible
                                 ? Icons.visibility
-                                : Icons.visibility_off,  
+                                : Icons.visibility_off,
                             color: Colors.black,
                           ),
                           onPressed: () {
@@ -192,6 +205,7 @@ class _loginpageState extends State<loginpage> {
                     ),
                     onTap: () {
                       loginuser();
+                      save();
                     }),
               ),
               Container(
@@ -237,7 +251,11 @@ class _loginpageState extends State<loginpage> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => acoountpage(),));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => acoountpage(),
+                          ));
                     },
                   )),
               GestureDetector(
@@ -263,25 +281,49 @@ class _loginpageState extends State<loginpage> {
   void loginuser() async {
     final _mobile = numbercontroller.text;
     final _password = passwordcontroller.text;
+    final im = image;
+    final name = username;
+    final ima = image;
+
     if (_mobile.isEmpty) {
       showErrorMessage("please enter mobile no");
     } else if (_password.isEmpty) {
       showErrorMessage("please enter password");
     } else {
-      final formData =
-          FormData.fromMap({"phone": _mobile, "password": _password});
+      final formData = FormData.fromMap({
+        "phone": _mobile,
+        "password": _password,
+        "username": username,
+        "image": im,
+        "email": email
+      });
       final result = await ApiClass().LoginUserApi(formData);
-      if (result != null) {Navigator.push(
-                          context,
-                          MaterialPageRoute( 
-                            builder: (context) => permissionpage(),
-                          ));
+      print("ddddddddddddddddddddddddddddddddddddddddddd${result?.username}");
+      print("ddddddddddddddddddddddddddddddddddddddddddd${result?.phone}");
+      
+      setState(() {
+        usrname=result!.username!;
+        phnm=result.phone!;
+        
+      print("nnnnnnnnnnnnnnnnnnnnnnnnnnnnn$usrname");
+       print("1111111111111111111111111111$phnm");
+      });
+      
+
+      if (result != null) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => permissionpage(),
+            ));
+            save();
         showSuccessMessage("success");
       } else {
         showErrorMessage("error");
       }
     }
   }
+ 
 
   void showErrorMessage(String message) {
     MotionToast.error(
@@ -305,8 +347,19 @@ class _loginpageState extends State<loginpage> {
       height: 80,
       dismissable: false,
     ).show(context as BuildContext);
-
-
-    
   }
+   Future<void> save() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString("name1",usrname );
+      prefs.setString("phone",phnm );
+     
+    
+
+    });
+     print("55555555111111111111$phnm");
+     print("555555555555555555555555555$usrname");
+  }
+   
+   
 }

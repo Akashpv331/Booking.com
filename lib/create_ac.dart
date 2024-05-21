@@ -25,6 +25,7 @@ class _acoountpageState extends State<acoountpage> {
  
   TextEditingController passwordcontroller = TextEditingController();
    TextEditingController namecontroller = TextEditingController();
+   String im="";
 
   bool passwordvisible = true;
   @override
@@ -365,7 +366,7 @@ class _acoountpageState extends State<acoountpage> {
     final _mobile = numbercontroller.text;
 
     final _password = passwordcontroller.text;
-
+final ima=im;
     if (_username.isEmpty) {
       showErrorMessage('Please enter first name');
     } else if (_email.isEmpty) {
@@ -379,7 +380,8 @@ class _acoountpageState extends State<acoountpage> {
         'username': _username,
         'email': _email,
         'phone': _mobile,
-        'password': _password
+        'password': _password,
+        "image":ima
       });
 
       final _result = await ApiClass().RegisterUserApi(_formData);

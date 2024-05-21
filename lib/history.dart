@@ -18,7 +18,7 @@ class _historypageState extends State<historypage> {
   String im="";
   String cheout="";
   String chein="";
-  Map result={};
+  List result=[];
   @override
   void initState() {
     // TODO: implement initState
@@ -52,7 +52,7 @@ return Container(child: Column(
                           child: Container(
                             height: MediaQuery.of(context).size.height / 7,
                             width: MediaQuery.of(context).size.width / 2,
-                            decoration: BoxDecoration(image: DecorationImage(image: NetworkImage("hostel_image"))),
+                            decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(result[index]["hostel_image"]))),
                           ),
                         ),
                         Container(
@@ -64,10 +64,10 @@ return Container(child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                "name",
+                                result[index]["hname"],
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text("hostel_loc"),
+                              Text(result[index]["hostel_loc"]),
                               Row(
                                 children: [
                                   Icon(
@@ -75,7 +75,7 @@ return Container(child: Column(
                                     color: Colors.black,
                                     size: 15,
                                   ),
-                                  Text("hostel_price")
+                                  Text(result[index]["hostel_price"].toString())
                                 ],
                               ),
                               Row(
@@ -115,13 +115,13 @@ return Container(child: Column(
                           children: [
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check in",style: TextStyle(color: Colors.grey),), Text("checkin",style: TextStyle(fontWeight: FontWeight.bold),)],
+                              children: [Text(result[index]["checkin"],style: TextStyle(color: Colors.grey),), Text("checkin",style: TextStyle(fontWeight: FontWeight.bold),)],
                             ),
 
                             Icon(Icons.arrow_circle_right_outlined,color: Colors.black54,),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [Text("check out",style: TextStyle(color: Colors.grey)), Text("checkout",style: TextStyle(fontWeight: FontWeight.bold))],
+                              children: [Text(result[index]["checkout"],style: TextStyle(color: Colors.grey)), Text("checkout",style: TextStyle(fontWeight: FontWeight.bold))],
                             )
                           ],
                         ),
@@ -141,7 +141,7 @@ return Container(child: Column(
       final formData =
           FormData.fromMap({"checkin": chein,"checkout":cheout ,"hostel_price":pric,"hostel_loc":loca,"hname":name,"hostel_image":im});
       result = (await ApiClass().BookedhisApi()) 
-      as Map;
+      as List;
       print("oooooooooooooooooooooooooooooooooooooooooo$result");
       print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm${result}");
 setState(() { 

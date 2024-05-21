@@ -30,10 +30,10 @@ class _check_inState extends State<check_in> {
 
   Future<void> savedata() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.setString("date1", DateFormat.yMMMMd().format(selectedDay));
+    setState(() { 
+      prefs.setString("date1", DateFormat('yyy-MM-dd').format(selectedDay));
       print(
-          "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ${DateFormat.yMMMMd().format(selectedDay)}");
+          "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ${DateFormat.yMMMd().format(selectedDay)}");
     });
   }
 
@@ -133,7 +133,7 @@ class _check_inState extends State<check_in> {
                 GestureDetector(
                     child: AnimatedPhysicalModel(
                       duration: Duration(seconds: 1),
-                      color: !_first ? Colors.white : Colors.black,
+                      color: !_first ? Colors.black : Colors.white,
                       elevation: 0,
                       shape: BoxShape.rectangle,
                       shadowColor: Colors.black,

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project/select_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
@@ -12,7 +13,23 @@ class homepage extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<homepage> {
+  String usname="";
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    load();
+  }
+  Future<void> load() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      usname = pref.getString("name1") ?? "name";
+     
+    });
+  }
+  
+  @override
+  
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -99,7 +116,7 @@ class _MyWidgetState extends State<homepage> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "Akash !",
+                      "$usname !",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Icon(
@@ -286,12 +303,12 @@ class _MyWidgetState extends State<homepage> {
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("399"),
+                                  Text("5000"),
                                   Icon(
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("2999")
+                                  Text("6000",style: TextStyle(fontWeight: FontWeight.w200),)
                                 ],
                               )
                             ],
@@ -389,12 +406,12 @@ class _MyWidgetState extends State<homepage> {
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("399"),
+                                  Text("4500"),
                                   Icon(
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("2999")
+                                  Text("5000",style: TextStyle(fontWeight: FontWeight.w200))
                                 ],
                               )
                             ],
@@ -496,12 +513,12 @@ class _MyWidgetState extends State<homepage> {
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("399"),
+                                  Text("5000"),
                                   Icon(
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("2999")
+                                  Text("5500",style: TextStyle(fontWeight: FontWeight.w200))
                                 ],
                               )
                             ],
@@ -599,12 +616,12 @@ class _MyWidgetState extends State<homepage> {
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("399"),
+                                  Text("4500"),
                                   Icon(
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("2999")
+                                  Text("5500",style: TextStyle(fontWeight: FontWeight.w200))
                                 ],
                               )
                             ],

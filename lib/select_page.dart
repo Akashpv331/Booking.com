@@ -251,7 +251,7 @@ class _selectpageState extends State<selectpage> {
                                     color: Colors.orange,
                                     size: 18,
                                   ),
-                                  Text(result[index]["hloc"],style: TextStyle(fontSize: 11),)
+                                  Text(result[index]["hloc"],style: TextStyle(fontSize: 9),)
                                 ],
                               ),
                               Row(
@@ -272,7 +272,7 @@ class _selectpageState extends State<selectpage> {
                                     Icons.currency_rupee,
                                     size: 10,
                                   ),
-                                  Text("2999",
+                                  Text("6000",
                                       style: TextStyle(color: Colors.grey))
                                 ],
                               ),

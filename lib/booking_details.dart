@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:project/Api&Url/ApiClass.dart';
-import 'package:project/conform_page.dart';
+import 'package:project/confirm_page.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 class booking_details extends StatefulWidget {
   const booking_details({super.key});
@@ -18,42 +17,39 @@ class booking_details extends StatefulWidget {
 }
 
 class _booking_detailsState extends State<booking_details> {
-
-  String chin="";
-  String chout="";
-  String rm="";
-   String name="";
-  String loc="";
-  String pri="";
-  String im="";
-  String cin="";
-  String cout="";
-  Map result={};
+  String chin = "";
+  String chout = "";
+  String rm = "";
+  String name = "";
+  String loc = "";
+  String pri = "";
+  String im = "";
+  String cin = "";
+  String cout = "";
+  Map result = {};
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     load();
     Confirmbooking();
-    
-  }
-  Future<void> load() async{
-    SharedPreferences pref= await SharedPreferences.getInstance();
-    setState(() {
-      chin=pref.getString("date1")??"no data found";
-      chout=pref.getString("date2")??"no  data found";
-      rm=pref.getString("room")??"no data found";
-      name=pref.getString("name")??"no found";
-      im=pref.getString("image")??"no found";
-      loc=pref.getString("location")??" no found";
-      pri=pref.getInt("price").toString();
-    
-    });
-    
-     print("bbbbbbbbbbbbbbbbbbbbbbbbbbb$pri");
   }
 
-  
+  Future<void> load() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      chin = pref.getString("date1") ?? "no data found";
+      chout = pref.getString("date2") ?? "no  data found";
+      rm = pref.getString("room") ?? "no data found";
+      name = pref.getString("name") ?? "no found";
+      im = pref.getString("image") ?? "no found";
+      loc = pref.getString("location") ?? " no found";
+      pri = pref.getInt("price").toString();
+    });
+
+    print("bbbbbbbbbbbbbbbbbbbbbbbbbbb$pri");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -245,8 +241,9 @@ class _booking_detailsState extends State<booking_details> {
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height / 6,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),image: DecorationImage(image: NetworkImage("$im"),fit:BoxFit.fill )
-                            ),
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: NetworkImage("$im"), fit: BoxFit.fill)),
                         child: Column(
                           children: [
                             Padding(
@@ -256,7 +253,8 @@ class _booking_detailsState extends State<booking_details> {
                                   Container(
                                     height:
                                         MediaQuery.of(context).size.height / 26,
-                                    width: MediaQuery.of(context).size.width / 6,
+                                    width:
+                                        MediaQuery.of(context).size.width / 6,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: Colors.red),
@@ -266,7 +264,6 @@ class _booking_detailsState extends State<booking_details> {
                                     width:
                                         MediaQuery.of(context).size.width / 1.6,
                                     height: 2,
-                                    
                                   ),
                                   CircleAvatar(
                                     radius: 16,
@@ -301,11 +298,15 @@ class _booking_detailsState extends State<booking_details> {
                             color: Colors.orange,
                             size: 18,
                           ),
-                          Text("$loc",style: TextStyle(fontSize: 11))
+                          Text("$loc", style: TextStyle(fontSize: 9))
                         ],
                       ),
                       Row(
-                        children: [Text("$name",),],
+                        children: [
+                          Text(
+                            "$name",
+                          ),
+                        ],
                       ),
                       Row(
                         children: [
@@ -335,21 +336,22 @@ class _booking_detailsState extends State<booking_details> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 16,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(19),
-                        color: Colors.black),
-                    child: Center(
-                        child: Text(
-                      "Conform",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                    )),
-                  ),onTap: (){Confirmbooking();}
-                    
-                ),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 16,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(19),
+                          color: Colors.black),
+                      child: Center(
+                          child: Text(
+                        "Confirm",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                      )),
+                    ),
+                    onTap: () {
+                      Confirmbooking();
+                    }),
               )
             ],
           ),
@@ -361,45 +363,48 @@ class _booking_detailsState extends State<booking_details> {
 //   print("iiiiiiii");
 //       final formData =
 //           FormData.fromMap({"checkin": cin,"checkout":cout ,"hostel_price":pri,"hostel_loc":loc,"hname":name,"hostel_image":im});
-//       result = (await ApiClass().BookedhisApi()) 
+//       result = (await ApiClass().BookedhisApi())
 //       as Map;
 //       print("oooooooooooooooooooooooooooooooooooooooooo$result");
-// setState(() { 
+// setState(() {
 //   bookingdetails();
 // });
 
+  void Confirmbooking() async {
+    final _name = name;
+    final _location = loc;
+    final _price = pri;
+    final _image = im;
+    final _checkin = chin;
+    final _checkout = chout;
 
-void Confirmbooking() async{
-    final _name=name;
-    final _location=loc;
-    final _price=pri;
-    final _image=im;
-    final _checkin=chin;
-    final _checkout=chout;
+    final formData = FormData.fromMap({
+      "hname": _name,
+      "hostel_loc": _location,
+      "hostel_price": _price,
+      "hostel_image": _image,
+      "checkin": _checkin,
+      "checkout": _checkout
+    });
+    final results = await ApiClass().ConfirmApi(formData);
+    print("cccccccccccccccccccccccccc${results?.hname}");
+    print("cccccccccccccccccccccccccc${results?.hostelLoc}");
+    print("cccccccccccccccccccccccccc${results?.hostelPrice}");
+    print("cccccccccccccccccccccccccc${results?.hostelImage}");
+    print("cccccccccccccccccccccccccc${results?.checkin}");
+    print("cccccccccccccccccccccccccc${results?.checkout}");
 
-    final formData =
-          FormData.fromMap({"hname": _name, "hostel_loc": _location,"hostel_price":_price,"hostel_image":_image,"checkin":_checkin,"checkout":_checkout});
-      final results = await ApiClass().ConfirmApi(formData);
-      print("cccccccccccccccccccccccccc${results?.hname}");
-       print("cccccccccccccccccccccccccc${results?.hostelLoc}");
-        print("cccccccccccccccccccccccccc${results?.hostelPrice}");
-         print("cccccccccccccccccccccccccc${results?.hostelImage}");
-          print("cccccccccccccccccccccccccc${results?.checkin}");
-           print("cccccccccccccccccccccccccc${results?.checkout}");
+    if (results != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Conform(),
+          ));
+      showSuccessMessage("success");
+    } else {}
+  }
 
-
-      if(results !=null){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => Conform(),));
-        showSuccessMessage("success");
-        
-      }
-      else{
-        
-      }
-
-
-
-  } void showErrorMessage(String message) {
+  void showErrorMessage(String message) {
     MotionToast.error(
       title: Text(""),
       description: Text(message),
@@ -422,6 +427,4 @@ void Confirmbooking() async{
       dismissable: false,
     ).show(context as BuildContext);
   }
-
 }
-

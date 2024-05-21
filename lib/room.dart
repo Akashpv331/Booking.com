@@ -244,7 +244,7 @@ Future<void> save1() async{
                 padding: const EdgeInsets.all(8.0),
                 child: AnimatedPhysicalModel(
                   duration: Duration(seconds: 1),
-                  color: !_first1 ? Colors.white : Colors.black,
+                  color: !_first1 ? Colors.black: Colors.white,
                   elevation: 0,
                   shadowColor: Colors.black45,
                   shape: BoxShape.rectangle,

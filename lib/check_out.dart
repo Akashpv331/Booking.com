@@ -49,7 +49,7 @@ Future<void> save() async{
   SharedPreferences pref2= await SharedPreferences.getInstance();
   setState(() {
     // pref2.setString("date3", cale.toString());
-    pref2.setString("date2", DateFormat.yMMMMd().format(selectedDay1) );
+    pref2.setString("date2", DateFormat('yyy-MM-dd').format(selectedDay1) );
       print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ${selectedDay1.toString()}");
     print("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz${cale}");
   });
@@ -203,7 +203,7 @@ Future<void> save() async{
         
                 GestureDetector(
                     child: AnimatedPhysicalModel(duration: Duration(seconds: 1),
-                    color: !_first? Colors.white:Colors.black,
+                    color: !_first? Colors.black:Colors.white,
                     elevation: 0,
                     shape: BoxShape.rectangle,
                     shadowColor: Colors.black,
